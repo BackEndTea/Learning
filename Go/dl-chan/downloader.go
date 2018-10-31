@@ -2,27 +2,29 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
-	"runtime"
 	"strconv"
+	"strings"
 )
 
-type Thread struct {
+type thread struct {
 	No int
 }
 
-type Page struct {
-	Page    int
-	Threads []Thread
+type page struct {
+	page    int
+	Threads []thread
 }
 
 // 4chan JSON structure is somewhat 'special'
-type Posts struct {
-	Posts []Post
+type posts struct {
+	Posts []post
 }
 
 /*
@@ -30,59 +32,75 @@ type Posts struct {
  * The resulting url would  be Images: https://i.4cdn.org/<board>/<tim><ext>
  * Note that the . is already part of the Ext, so don't add that again
  */
-type Post struct {
+type post struct {
 	Tim int
 	Ext string
 }
 
-func (p Post) getFileName() string {
+func (p post) getFileName() string {
 	if p.Tim == 0 || p.Ext == "" {
 		return ""
 	}
 	return strconv.Itoa(p.Tim) + p.Ext
 }
 
-const board = "g"
-
-var saveLocation = userHomeDir() + "/output/chan/" + board
-
 func main() {
-	posts := getPosts()
+	board, saveLocation := getFlags()
+	fmt.Println("Downloading from board", board)
+	fmt.Println("Saving to loaction", saveLocation)
+
+	posts := getPosts(board, saveLocation)
 	createDirIfNotExist(saveLocation)
 
 	for _, post := range posts {
-		DownloadFile(board, post.getFileName())
+		downloadFile(board, post.getFileName(), saveLocation)
 	}
 
 }
 
-func getPosts() []Post {
+func getFlags() (string, string) {
+	var board string
+	flag.StringVar(&board, "board", "", "Board to download all images from")
+	var saveLocation string
+	flag.StringVar(&saveLocation, "out", ".", "Output directory to save images. A child directory with the board name will contain the images")
+	flag.Parse()
+
+	if board == "" {
+		panic(errors.New("Please specify the board flag"))
+	}
+
+	saveLocation = strings.TrimSuffix(saveLocation, "/")
+
+	return board, saveLocation
+}
+
+func getPosts(board, saveLocation string) []post {
 	threads := getThreads(board)
-	var posts []Post
+	var posts []post
 	for _, thread := range threads {
 		posts = append(posts, getThreadContent(board, thread)...)
 	}
 	return posts
 }
-func getThreads(board string) []Thread {
+func getThreads(board string) []thread {
 	url := "https://a.4cdn.org/" + board + "/threads.json"
 	threadList := []byte(readURLl(url))
 
-	var keys []Page
+	var keys []page
 	json.Unmarshal(threadList, &keys)
 
-	var threads []Thread
+	var threads []thread
 	for _, page := range keys {
 		threads = append(threads, page.Threads...)
 	}
 	return threads
 }
 
-func getThreadContent(board string, t Thread) []Post {
+func getThreadContent(board string, t thread) []post {
 	url := "https://a.4cdn.org/" + board + "/thread/" + strconv.Itoa(t.No) + ".json"
 	body := []byte(readURLl(url))
 
-	var key Posts
+	var key posts
 	json.Unmarshal(body, &key)
 
 	return key.Posts
@@ -95,7 +113,6 @@ func createDirIfNotExist(direcotry string) {
 }
 
 func readURLl(url string) string {
-	fmt.Println("Accessing the url", url)
 	resp, _ := http.Get(url)
 	bytes, _ := ioutil.ReadAll(resp.Body)
 	stringBody := string(bytes)
@@ -103,46 +120,30 @@ func readURLl(url string) string {
 	return stringBody
 }
 
-func userHomeDir() string {
-	if runtime.GOOS == "windows" {
-		home := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
-		if home == "" {
-			home = os.Getenv("USERPROFILE")
-		}
-		return home
-	} else if runtime.GOOS == "linux" {
-		home := os.Getenv("XDG_CONFIG_HOME")
-		if home != "" {
-			return home
-		}
-	}
-	return os.Getenv("HOME")
-}
-
-// DownloadFile will download a url to a local file. It's efficient because it will
+// downloadFile will download a url to a local file. It's efficient because it will
 // write as it downloads and not load the whole file into memory.
-func DownloadFile(board, filepath string) {
-	if filepath == "" {
+func downloadFile(board, filename, saveLocation string) {
+	if filename == "" {
 		fmt.Println("Found a post with no file, skipping")
 		return
 	}
 
-	url := "https://i.4cdn.org/" + board + "/" + filepath
+	url := "https://i.4cdn.org/" + board + "/" + filename
 	fmt.Println("Downloading from " + url)
-	filepath = saveLocation + "/" + filepath
-	fmt.Println("Saving file to " + filepath)
+	filename = saveLocation + "/" + board + "/" + filename
 
 	// If the file already exists, then we don't need to download it
-	if _, err := os.Stat(filepath); !os.IsNotExist(err) {
-		fmt.Println("File already Exists, not downloading")
+	if _, err := os.Stat(filename); !os.IsNotExist(err) {
+		fmt.Println("File already exists, not downloading")
 		return
 	}
+	fmt.Println("Saving file to " + filename)
 
 	// Create the file
-	out, err := os.Create(filepath)
+	out, err := os.Create(filename)
 	if err != nil {
 		fmt.Println("Unable to create the file")
-		return
+		panic(err)
 	}
 	defer out.Close()
 
