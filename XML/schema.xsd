@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="merge_request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="merge_request_number">
+                    <xs:annotation>
+                        <xs:documentation>The Merge request number, not including any leading # or !</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="title" type="xs:string" />
+                <xs:element name="code" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The commit diff, represented as a string</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="commits">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="commit" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="hash" type="xs:string"/>
+                                        <xs:element name="title">
+                                            <xs:annotation>
+                                                <xs:documentation>The title of the commit, which may be no longer than 72 characters</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="72"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="body" type="xs:string" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="message" type="xs:string" />
+                <xs:element name="comments" type="xs:string" minOccurs="0"/>
+                <xs:element name="status" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

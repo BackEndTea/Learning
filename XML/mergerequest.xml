@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<merge_request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="schema.xsd">
+    <merge_request_number>12</merge_request_number>
+    <title>Fix bugs</title>
+    <code>
+        Code diff goes here...
+    </code>
+    <commits>
+        <commit>
+            <hash>asdf83asdf0asdf12ja</hash>
+            <title>Fix</title>
+        </commit>
+        <commit>
+            <hash>asdf83aadsdf0asdfja</hash>
+            <title>Real fix</title>
+        </commit>
+        <commit>
+            <hash>asdf83asdf0asdf0pja</hash>
+            <title>Actual real fix now</title>
+        </commit>
+    </commits>
+    <message>
+        This merge request fixes a big bug
+    </message>
+    <status>false</status>
+</merge_request>
