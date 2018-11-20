@@ -4,8 +4,12 @@
 .DS_Store
 .vscode/*
 
-# Output
+# Virutal machines etc
+.vagrant/
+
+# input and output
 /output
+data/
 
 #Go stuff published under my name (BC of symlinks)
 Go/dlchan
