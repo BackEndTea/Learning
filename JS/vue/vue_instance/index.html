@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue instance</title>
+    </head>
+    <body>
+        <div id="app">
+            <p v-if="seen">Now you see me</p>
+        </div>
+
+        <div id="example">
+            <p>Original message: "{{ message }}"</p>
+            <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        </div>
+
+        <div id="demo">{{ fullName }}</div>
+
+        <div id="watch-example">
+            <p>
+                Ask a yes/no question:
+                <input v-model="question">
+            </p>
+            <p>{{ answer }}</p>
+        </div>
+
+        <div id="class-example">
+            <div v-bind:class="{ hidden: isHidden}">text goes here</div>
+        </div>
+        <style>
+        .hidden {
+            visibility: hidden;
+        }
+        </style>
+
+        <div id="conditional">
+            <h1 v-if='ok'>Yes</h1>
+            <h1 v-else>No</h1>
+            <template v-if="Math.random() > 0.5">
+                <h1>Title</h1>
+                <h2>more</h2>
+            </template>
+            <template v-else>
+                <p>
+                    some text
+                </p>
+                <h1>Foo</h1>
+            </template>
+
+            <template v-if="loginType === 'username'">
+                <label>Username</label>
+                <input placeholder="Enter your username">
+            </template>
+            <template v-else>
+                <label>Email</label>
+                <input placeholder="Enter your email address">
+            </template>
+            <button v-on:click="updateLoginType">Change type</button>
+        </div>
+
+        <ul id="v-for-object" class="demo">
+            <li v-for="(value, key, index) in object">
+                {{ index }} : {{ key }} : {{ value }}
+            </li>
+        </ul>
+
+        <!-- Its fine to use the cds for this test -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
+        <script src="index.js"></script>
+    </body>
+</html>

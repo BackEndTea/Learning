@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue components</title>
+    </head>
+    <body>
+        <div id="components-demo">
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+        </div>
+
+        <div id="blog-post-demo">
+            <div :style="{ fontSize: postFontSize + 'em' }">
+                <blog-post-cool
+                    v-for="post in posts"
+                    v-bind:key="post.id"
+                    v-bind:post="post"
+                    v-on:enlarge-text="postFontSize += 0.1"
+                ></blog-post-cool>
+            </div>
+        </div>
+
+        <!-- Its fine to use the cds for this test -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script src="index.js"></script>
+    </body>
+</html>
