@@ -2,10 +2,11 @@
 .idea/
 *.swp
 .DS_Store
-.vscode/*
+.vscode/
 
-# Virutal machines etc
+# Virutal machines/ virutal environments
 .vagrant/
+venv/
 
 # input and output
 /output
