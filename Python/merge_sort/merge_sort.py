@@ -1,5 +1,8 @@
+inversions = 0
+
 def main():
-    print(merge_sort([3,1,5,8,2,7,4,6,0,2,4,30,23,75]))
+    print(merge_sort([1,3,5,7,2,4,6]))
+    print(inversions)
 
 def merge_sort(input):
     n = len(input)
@@ -35,6 +38,8 @@ def merge(input, second = []):
             continue
         out.append(second[j])
         j += 1
+        global inversions
+        inversions += len(input) - i
     return out
 
 
