@@ -1,0 +1,53 @@
+T(n) <= a * T((n/b)) + O(n^d)
+
+a = number of recursive calls
+b = input size shrinking factor
+d = exponent of combination/summing time.
+
+T(n) =
+1. (if a = b^d) = O(n^d * log(n)) <- base doesnt matter
+2. (if a < b^d) = O(n^d)
+3. (if a > b^d) = O(n^log(a)) <- base b
+
+
+T(n)=7∗T(n/3)+n ^2
+
+a= 7
+b= 3
+d= 2
+
+Case 2
+
+T(n)=9∗T(n/3)+n^2
+
+a= 9
+b= 3
+d= 2
+
+Case 1
+
+
+T(n)=5∗T(n/3)+4n
+
+a= 5
+b= 3
+d= 1
+
+Case 3
+
+O(n^log(a)) n^log/3/(5)
+
+T(x) = 1 * T(n/2) + O(n^0)
+
+Case 1: O(x^d * log(x))
+
+FastPower(a,x) :
+  if x = 1
+    return a
+  else
+    c := a*a
+    ans := FastPower(c,[x/2])
+  if x is odd
+    return a*ans
+  else return ans
+end
