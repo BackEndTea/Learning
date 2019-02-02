@@ -1,0 +1,10 @@
+{
+  "name": "single_file_component",
+  "version": "0.0.1",
+  "description": "single file vue component test",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.5.21"
+  }
+}

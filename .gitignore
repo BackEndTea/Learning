@@ -14,3 +14,6 @@ data/
 
 #Go stuff published under my name (BC of symlinks)
 Go/dlchan
+
+#dependencies
+node_modules/
