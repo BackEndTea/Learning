@@ -16,3 +16,10 @@ indent_size=2
 [*.go]
 indent_size=4
 indent_style=tab
+
+# Text files that are downloaded should be perserved.
+[*.txt]
+indent_style=unset
+indent_size=unset
+trim_trailing_whitespace=false
+insert_final_newline=false
