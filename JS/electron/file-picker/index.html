@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <style>
+    .hidden {
+        visibility: hidden;
+    }
+    </style>
   </head>
   <body>
     <h1>Hello World!</h1>
-    <p>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-    </p>
     <button id="foo">Select files</button>
+    <button class='hidden' id="prev">Prev</button>
+    <button class='hidden' id="next">Next</button>
+    <div id="bar"></div>
   </body>
   <script src="./render_stuff.js">
   </script>
