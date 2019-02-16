@@ -1,0 +1,13 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "Gert de Pagter",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^4.0.5"
+  }
+}
