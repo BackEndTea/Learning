@@ -17,3 +17,7 @@ Go/dlchan
 
 #dependencies
 node_modules/
+
+# caches
+__pycahce__/
+*.pyc
