@@ -1,4 +1,6 @@
+#tmp image used
 output.png
-SON2B.pdf
-SON2B-final.pdf
-SON2B_pages/
+
+# input and output files.
+*.pdf
+**_pages/
