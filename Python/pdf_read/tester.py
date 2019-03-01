@@ -3,19 +3,28 @@ try:
 except ImportError:
     import Image
 import pytesseract
+import cv2
 
 def main():
     read_file()
 
 def read_file():
     #get data
-    img = Image.open('foo_pages/page-0.png')
+    img = Image.open('SON2B_pages/page-0.png')
     text = pytesseract.image_to_string(img)
     boxes = pytesseract.image_to_boxes(img)
 
     f = File(text, boxes)
     draw_box(img, f)
-    remove_text(img, f,[5,9])
+    remove_text(img, f, [5,9])
+
+    # img = cv2.imread('foo_pages/page-0.png')
+    # text = pytesseract.image_to_string(img)
+    # boxes = pytesseract.image_to_boxes(img)
+
+    # f = File(text, boxes)
+    # draw_box(Image.fromarray(img), f)
+    # remove_text(img, f,[5,9])
 
 def remove_text(image, file, chars):
     """
