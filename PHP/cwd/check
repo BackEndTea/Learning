@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir cwd
+cd cwd
+echo getcwd in existing directory
+php ../cwd.php
+rm -r $PWD
+echo getcwd when directory no longer exists
+php ../cwd.php
