@@ -8,6 +8,8 @@ from heapq import merge as hmerge
 from sort_util import heapify
 from sort_util import merge
 from sort_util import Pile
+from sort_util import create_heap
+from sort_util import dequeue_max
 
 def binary_tree_sort(arr):
     pass
@@ -104,7 +106,10 @@ def shell_sort(arr):
     return arr
 
 def smoothsort(arr):
-    pass
+    size_list = create_heap(arr)
+    for heap_size in reversed(range(len(arr))):
+        dequeue_max(arr, size_list, heap_size)
+    return arr
 
 def timsort(arr):
     pass
@@ -154,7 +159,7 @@ if __name__ == "__main__":
         patience_sorting,
         quicksort,
         shell_sort,
-        # smoothsort,
+        smoothsort,
         # timsort,
         # tournament_sort,
     ]
@@ -162,4 +167,4 @@ if __name__ == "__main__":
     print('Checking all functions have the same result.\n')
     validate_results(functions)
     print('\nAll functions have the same result. Now the benchmark starts.\n')
-    benchmark(functions)
+    # benchmark(functions)
