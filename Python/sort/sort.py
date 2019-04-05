@@ -3,6 +3,8 @@ import random
 import statistics
 import copy
 
+from sort_util import heapify
+from sort_util import merge
 
 def binary_tree_sort(arr):
     pass
@@ -26,28 +28,6 @@ def cubesort(arr):
     pass
 
 def heapsort(arr):
-    def heapify(arr, n, i):
-        largest = i    # Initialize largest as root
-        l = 2 * i + 1  # left = 2*i + 1
-        r = 2 * i + 2  # right = 2*i + 2
-
-        # See if left child of root exists and is
-        # greater than root
-        if l < n and arr[i] < arr[l]:
-            largest = l
-
-        # See if right child of root exists and is
-        # greater than root
-        if r < n and arr[largest] < arr[r]:
-            largest = r
-
-        # Change root, if needed
-        if largest != i:
-            arr[i],arr[largest] = arr[largest],arr[i]  # swap
-
-            # Heapify the root.
-            heapify(arr, n, largest)
-
     n = len(arr)
 
     # Build a maxheap.
@@ -63,32 +43,6 @@ def introsort(arr):
     pass
 
 def mergesort(input):
-    def merge(input, second = []):
-        i = 0
-        j = 0
-        n = len(input) + len(second)
-        out = []
-        for _ in range(0, n):
-            try:
-                inp = input[i]
-            except IndexError:
-                out += second[j:]
-                break
-
-            try:
-                sec = second[j]
-            except IndexError:
-                out += input[i:]
-                break
-
-            if inp < sec:
-                out.append(input[i])
-                i += 1
-                continue
-            out.append(second[j])
-            j += 1
-        return out
-
     n = len(input)
     if n <= 1:
         return input
@@ -143,7 +97,6 @@ if __name__ == "__main__":
         bubble_sort,
         cubesort,
         heapsort,
-        in_place_merge_sort,
         introsort,
         mergesort,
         patience_sorting,
