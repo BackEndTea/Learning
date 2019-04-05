@@ -174,12 +174,14 @@ def benchmark(functions):
     correct_list = mergesort(rand_list.copy())
     for func in functions:
         print("Starting the benchmark of {}".format(func.__name__))
-        for _ in range(1000):
+        for l in range(1000):
+            if l % 50 == 0 and func.__name__ is 'bubble_sort':
+                print('In loop', str(l))
             i = rand_list.copy()
             t0 = time.time()
             i = func(i)
-            assert i == correct_list
             t1 = time.time()
+            assert i == correct_list
 
             times[func.__name__].append((t1 - t0) * 1000)
         print("Finished the benchmark of {}".format(func.__name__))
