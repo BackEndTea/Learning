@@ -2,6 +2,7 @@ import time
 import random
 import statistics
 import copy
+import math
 from bisect import bisect_left
 from heapq import merge as hmerge
 
@@ -69,8 +70,20 @@ def heapsort(arr):
         heapify(arr, i, 0)
     return arr
 
-def introsort(arr):
-    pass
+def introsort(arr, max_depth = None):
+    if max_depth == None:
+        max_depth = math.log(len(arr), 2)
+    size = len(arr)
+    pivot = size - 1
+
+    if size <= 1:
+        return arr
+    elif pivot > max_depth:
+        heapsort(arr)
+    else:
+        introsort(arr[0:p], max_depth - 1)
+        introsort(arr[p + 1:n], max_depth - 1)
+    return arr
 
 def mergesort(input):
     n = len(input)
@@ -216,7 +229,7 @@ if __name__ == "__main__":
         bubble_sort,
         # cubesort,
         heapsort,
-        # introsort,
+        introsort,
         mergesort,
         patience_sorting,
         quicksort,
