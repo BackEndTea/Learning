@@ -15,9 +15,6 @@ from sort_util import insertion_sort
 from sort_util import floor_power_of_two
 from sort_util import rotate
 
-def binary_tree_sort(arr):
-    pass
-
 def blocksort(arr):
     power_of_two = floor_power_of_two(len(arr))
     scale = len(arr)/power_of_two # 1.0 <= scale < 2.0
@@ -53,9 +50,6 @@ def bubble_sort(arr):
                 unsorted = True  # If we find any changes the list was not sorted, indicating we need at least one more loop
         sorted_count += 1
     return arr
-
-def cubesort(arr):
-    pass
 
 def heapsort(arr):
     n = len(arr)
@@ -224,10 +218,8 @@ def benchmark(functions):
 
 if __name__ == "__main__":
     functions = [
-        # binary_tree_sort,
         blocksort,
         bubble_sort,
-        # cubesort,
         heapsort,
         introsort,
         mergesort,
@@ -241,4 +233,4 @@ if __name__ == "__main__":
     print('Checking all functions have the same result.\n')
     validate_results(functions)
     print('\nAll functions have the same result. Now the benchmark starts.\n')
-    # benchmark(functions)
+    benchmark(functions)
