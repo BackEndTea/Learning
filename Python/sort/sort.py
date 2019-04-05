@@ -12,32 +12,7 @@ from sort_util import Pile
 from sort_util import create_heap
 from sort_util import dequeue_max
 from sort_util import insertion_sort
-from sort_util import floor_power_of_two
-from sort_util import rotate
 
-def blocksort(arr):
-    power_of_two = floor_power_of_two(len(arr))
-    scale = len(arr)/power_of_two # 1.0 <= scale < 2.0
-
-    # insertion sort 16 - 31 items at a time
-    for m in range(0, power_of_two, 16):
-        start = int(m * scale)
-        end = int(start + 16 * scale)
-        arr = insertion_sort(arr[start:end])
-
-    length = 16
-    for length in range(length, power_of_two, length):
-        for m in range(0, power_of_two, length * 2):
-            start = m * scale
-            mid = (m + length) * scale
-            end = (m + length * 2) * scale
-            if arr[end - 1] < arr[start]:
-                # the two ranges are in reverse order, so a rotation is enough to merge them
-                arr = rotate(arr, mid - start, (start, end))
-            elif arr[mid - 1] > arr[mid]:
-                arr = merge(arr[start:mid], arr[mid:end])
-            # else the ranges are already correctly ordered
-    return arr
 
 def bubble_sort(arr):
     unsorted = True
@@ -196,12 +171,14 @@ def validate_results(functions):
 def benchmark(functions):
     times = {f.__name__: [] for f in functions}
     rand_list = random.sample(range(0,50000), 4000)
+    correct_list = mergesort(rand_list.copy())
     for func in functions:
         print("Starting the benchmark of {}".format(func.__name__))
         for _ in range(1000):
             i = rand_list.copy()
             t0 = time.time()
-            func(i)
+            i = func(i)
+            assert i == correct_list
             t1 = time.time()
 
             times[func.__name__].append((t1 - t0) * 1000)
@@ -218,7 +195,6 @@ def benchmark(functions):
 
 if __name__ == "__main__":
     functions = [
-        blocksort,
         bubble_sort,
         heapsort,
         introsort,
