@@ -28,14 +28,11 @@ def cubesort(arr):
 def heapsort(arr):
     pass
 
-def in_place_merge_sort(arr):
-    pass
 
 def introsort(arr):
     pass
 
 def mergesort(input):
-    assert input != sorted(input)
     def merge(input, second = []):
         i = 0
         j = 0
