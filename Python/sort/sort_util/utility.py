@@ -212,3 +212,21 @@ def binary_search(the_array, item, start, end):
 
     else:
         return mid
+
+
+def floor_power_of_two(x):
+    x = x | (x >> 1)
+    x = x | (x >> 2)
+    x = x | (x >> 4)
+    x = x | (x >> 8)
+    x = x | (x >> 16)
+    x = x | (x >> 32)
+    return x - (x >> 1)
+
+def rotate(array, amount, ran):
+    s = ran[0]
+    e = ran[1]
+    array[s:e] = array[s:e].reverse()
+    array[s:s + amount] = array[s:s + amount].reverse
+    array[s+amount:e] = array[s+amount:e].reverse()
+    return array

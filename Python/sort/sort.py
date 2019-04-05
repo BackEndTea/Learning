@@ -11,12 +11,35 @@ from sort_util import Pile
 from sort_util import create_heap
 from sort_util import dequeue_max
 from sort_util import insertion_sort
+from sort_util import floor_power_of_two
+from sort_util import rotate
 
 def binary_tree_sort(arr):
     pass
 
 def blocksort(arr):
-    pass
+    power_of_two = floor_power_of_two(len(arr))
+    scale = len(arr)/power_of_two # 1.0 <= scale < 2.0
+
+    # insertion sort 16 - 31 items at a time
+    for m in range(0, power_of_two, 16):
+        start = int(m * scale)
+        end = int(start + 16 * scale)
+        arr = insertion_sort(arr[start:end])
+
+    length = 16
+    for length in range(length, power_of_two, length):
+        for m in range(0, power_of_two, length * 2):
+            start = m * scale
+            mid = (m + length) * scale
+            end = (m + length * 2) * scale
+            if arr[end - 1] < arr[start]:
+                # the two ranges are in reverse order, so a rotation is enough to merge them
+                arr = rotate(arr, mid - start, (start, end))
+            elif arr[mid - 1] > arr[mid]:
+                arr = merge(arr[start:mid], arr[mid:end])
+            # else the ranges are already correctly ordered
+    return arr
 
 def bubble_sort(arr):
     unsorted = True
@@ -148,14 +171,19 @@ def timsort(arr):
     return sorted_array
 
 def validate_results(functions):
-    result = [1,2,3,4,5,6,7,8,9,10]
+    result = [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 10, 13, 23, 23, 32, 33, 45, 45, 45, 45, 52, 59, 67, 72, 82, 123, 123, 190, 764]
+    l = [0, 6, 2, 5, 10, 23, 7, 4, 5, 1, 0, 33, 45, 123, 3, 23, 45, 764, 190, 123, 32, 45, 59, 82, 72, 13, 45, 67, 52]
     for f in functions:
-        arr = [8,9,2,3,10,7,4,6,1,5] # random
+        arr = l.copy()
         assert result == f(arr)
-        arr = [1,2,3,4,5,6,7,8,9,10] # already correct
-        assert result == f(arr)
-        arr = [10,9,8,7,6,5,4,3,2,1] # reversed
-        assert result == f(arr)
+
+        already_correct = [1,2,3,4,5,6,7,8,9,10] # already correct
+        really_correct = [1,2,3,4,5,6,7,8,9,10]
+        assert really_correct == f(already_correct)
+
+        reverse = [10,9,8,7,6,5,4,3,2,1] # reversed
+        assert really_correct == f(reverse)
+
         print('The {} function has the correct result'.format(f.__name__))
 
 def benchmark(functions):
@@ -184,7 +212,7 @@ def benchmark(functions):
 if __name__ == "__main__":
     functions = [
         # binary_tree_sort,
-        # blocksort,
+        blocksort,
         bubble_sort,
         # cubesort,
         heapsort,
