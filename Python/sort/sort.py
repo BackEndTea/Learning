@@ -147,13 +147,14 @@ def timsort(arr):
         sorted_array = merge(sorted_array, run)
     return sorted_array
 
-def tournament_sort(arr):
-    pass
-
 def validate_results(functions):
     result = [1,2,3,4,5,6,7,8,9,10]
     for f in functions:
-        arr = [8,9,2,3,10,7,4,6,1,5]
+        arr = [8,9,2,3,10,7,4,6,1,5] # random
+        assert result == f(arr)
+        arr = [1,2,3,4,5,6,7,8,9,10] # already correct
+        assert result == f(arr)
+        arr = [10,9,8,7,6,5,4,3,2,1] # reversed
         assert result == f(arr)
         print('The {} function has the correct result'.format(f.__name__))
 
@@ -194,7 +195,6 @@ if __name__ == "__main__":
         shell_sort,
         smoothsort,
         timsort,
-        # tournament_sort,
     ]
     # First we do a quick run to make sure that all versions return the same result
     print('Checking all functions have the same result.\n')
