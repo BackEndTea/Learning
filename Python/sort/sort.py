@@ -3,6 +3,7 @@ import random
 import statistics
 import copy
 from bisect import bisect_left
+from heapq import merge as hmerge
 
 from sort_util import heapify
 from sort_util import merge
@@ -54,7 +55,6 @@ def mergesort(input):
     return merge(one,sec)
 
 def patience_sorting(arr):
-    from heapq import merge as hmerge
     """
     In computer science, patience sorting is a sorting algorithm inspired by, and named after, the card game patience.
     A variant of the algorithm efficiently computes the length of a longest increasing subsequence in a given array.
