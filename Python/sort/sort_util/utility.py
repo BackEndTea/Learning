@@ -184,3 +184,31 @@ def _sift_down(heap, root_idx, tree_size):
             heap[cur], heap[left] = heap[left], heap[cur]
             cur = left
             tree_size = tree_size - 1
+
+def insertion_sort(the_array):
+    l = len(the_array)
+    for index in range(1, l):
+        value = the_array[index]
+        pos = binary_search(the_array, value, 0, index - 1)
+        the_array = the_array[:pos] + [value] + the_array[pos:index] + the_array[index+1:]
+    return the_array
+
+def binary_search(the_array, item, start, end):
+    if start == end:
+        if the_array[start] > item:
+            return start
+        else:
+            return start + 1
+    if start > end:
+        return start
+
+    mid = round((start + end)/ 2)
+
+    if the_array[mid] < item:
+        return binary_search(the_array, item, mid + 1, end)
+
+    elif the_array[mid] > item:
+        return binary_search(the_array, item, start, mid - 1)
+
+    else:
+        return mid

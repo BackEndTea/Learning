@@ -10,6 +10,7 @@ from sort_util import merge
 from sort_util import Pile
 from sort_util import create_heap
 from sort_util import dequeue_max
+from sort_util import insertion_sort
 
 def binary_tree_sort(arr):
     pass
@@ -112,7 +113,39 @@ def smoothsort(arr):
     return arr
 
 def timsort(arr):
-    pass
+    runs, sorted_runs = [], []
+    length = len(arr)
+    new_run = [arr[0]]
+
+    # for every i in the range of 1 to length of array
+    for i in range(1, length):
+        # if i is at the end of the list
+        if i == length - 1:
+            new_run.append(arr[i])
+            runs.append(new_run)
+            break
+        # if the i'th element of the array is less than the one before it
+        if arr[i] < arr[i-1]:
+            # if new_run is set to None (NULL)
+            if not new_run:
+                runs.append([arr[i]])
+                new_run.append(arr[i])
+            else:
+                runs.append(new_run)
+                new_run = [arr[i]]
+        # else if its equal to or more than
+        else:
+            new_run.append(arr[i])
+
+    # for every item in runs, append it using insertion sort
+    for item in runs:
+        sorted_runs.append(insertion_sort(item))
+
+    # for every run in sorted_runs, merge them
+    sorted_array = []
+    for run in sorted_runs:
+        sorted_array = merge(sorted_array, run)
+    return sorted_array
 
 def tournament_sort(arr):
     pass
@@ -160,7 +193,7 @@ if __name__ == "__main__":
         quicksort,
         shell_sort,
         smoothsort,
-        # timsort,
+        timsort,
         # tournament_sort,
     ]
     # First we do a quick run to make sure that all versions return the same result
