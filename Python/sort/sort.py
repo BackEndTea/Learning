@@ -105,6 +105,8 @@ def main(functions):
         print('\tMEDIAN', statistics.median(numbers))
         print('\tMEAN  ', statistics.mean(numbers))
         print('\tSTDEV ', statistics.stdev(numbers))
+        print('\tLONGEST ', max(numbers))
+        print('\tSHORTEST ', min(numbers))
 
 
 if __name__ == "__main__":
