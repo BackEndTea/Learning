@@ -1,4 +1,4 @@
-#IDE/ editor
+# IDE/ editor
 .idea/
 *.swp
 .DS_Store
@@ -8,16 +8,19 @@
 .vagrant/
 venv/
 
-# input and output
+# Input and output
 /output
 data/
 
-#Go stuff published under my name (BC of symlinks)
+# Go stuff published under my name (BC of symlinks)
 Go/dlchan
 
-#dependencies
+# JavaScript
 node_modules/
 
-# caches
+# Python
 __pycahce__/
 *.pyc
+
+# C
+*.out
