@@ -62,17 +62,3 @@ function get_i_and_j(int $current, int $n, int $m): array{
     return [$i +1, $j +1];
     // return [9,9];
 }
-
-function get_value(int $i, int $j, int $n, int $m): int {
-    return 1;
-}
-
-function is_outer(int $i, int $j, int $n, int $m): bool {
-    if ($i === 0 || $j === 0) {
-        return true;
-    }
-    if($i === $n -1 || $j === $m -1) {
-        return true;
-    }
-    return false;
-}
