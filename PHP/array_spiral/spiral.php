@@ -57,8 +57,8 @@ function get_i_and_j(int $current, int $n, int $m): array{
     if ($current <= 2*$n + 2*$m -4) {
         return [0,(2*$n + 2*$m -4) - $current + 1];
     }
-    // We are in an inner loop
+    // We need to find the value of an inner loop, so we recurse
     list($i, $j) = get_i_and_j($current - (2*$n + 2*$m -4), $n -2, $m - 2);
+
     return [$i +1, $j +1];
-    // return [9,9];
 }
