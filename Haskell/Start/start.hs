@@ -25,7 +25,7 @@ boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
 length' xs = sum [1 | _ <- xs]
 
 triangles = [ (a,b,c) | c <- [1..10], b <- [1..10], a <- [1..10] ]
-rightTriangles = [ (a,b,c) | c <- [1..80], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2]
+rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2]
 rightTriangles' = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a+b+c == 24]
 
 removeNonUppercase :: [Char] -> [Char]
@@ -70,8 +70,11 @@ third (_, _, z) = z
 
 head' :: [a] -> a
 head' [] = error "Can't call head on an empty list, dummy!"
--- head' [""] = error "Can't call head on an empty string, dummy!"
 head' (x:_) = x
+
+head'' :: [a] -> a
+head'' xs = case xs of [] -> error "No head for empty lists!"
+                       (x:_) -> x
 
 tell :: (Show a) => [a] -> String
 tell [] = "The list is empty"
@@ -119,3 +122,34 @@ bmiTell'' weight height
           skinny = 18.5
           normal = 25.0
           fat = 30.0
+
+initials :: String -> String -> String
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
+    where (f:_) = firstname
+          (l:_) = lastname
+
+cylinder :: (RealFloat a) => a -> a -> a
+cylinder r h =
+    let sideArea = 2 * pi * r * h
+        topArea = pi * r ^2
+    in  sideArea + 2 * topArea
+
+
+cylinder' :: (RealFloat a) => a -> a -> a
+cylinder' r h =
+    sideArea + 2 * topArea
+    where sideArea = 2 * pi * r * h
+          topArea = pi * r ^2
+
+zoot x y z = x * y + z
+
+describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of [] -> "empty."
+                                               [x] -> "a singleton list."
+                                               xs -> "a longer list."
+
+describeList' :: [a] -> String
+describeList' xs = "The list is " ++ what xs
+    where what [] = "empty."
+          what [x] = "a singleton list."
+          what xs = "a longer list."
