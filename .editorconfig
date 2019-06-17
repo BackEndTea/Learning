@@ -10,7 +10,7 @@ indent_style=space
 [*.{html,php,py}]
 indent_size=4
 
-[*.js]
+[{*.js,ts,css,scss}]
 indent_size=2
 
 [*.go]
