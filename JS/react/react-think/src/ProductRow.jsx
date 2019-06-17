@@ -6,9 +6,8 @@ class ProductRow extends React.Component {
         const name = product.stocked ?
             product.name :
             <span style={{color: 'red'}}>
-        {product.name}
-      </span>;
-
+                {product.name}
+            </span>;
         return (
             <tr>
                 <td>{name}</td>

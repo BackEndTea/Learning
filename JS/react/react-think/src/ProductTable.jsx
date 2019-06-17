@@ -21,7 +21,8 @@ class ProductTable extends React.Component {
                 rows.push(
                     <ProductCategoryRow
                         category={product.category}
-                        key={product.category}/>
+                        key={product.category}
+                    />
                 );
             }
             rows.push(
