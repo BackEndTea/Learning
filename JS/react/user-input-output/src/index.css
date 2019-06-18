@@ -11,11 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.userCard {
-    display: inline-block;
-    margin: 20px;
-    border: 2px solid #eee;
-    box-shadow: 2px 2px #ccc;
-    padding: 10px;
-}

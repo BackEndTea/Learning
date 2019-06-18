@@ -2,7 +2,7 @@ import React from 'react';
 
 const UserInput = (props) => {
   const handleNameChange = event => {
-    props.nameHandler(event.target.value);
+    props.handleNameChange(event.target.value);
   };
 
   const styles = {
@@ -12,7 +12,12 @@ const UserInput = (props) => {
   };
 
   return (
-    <input style={styles} type="text" value={props.name} onChange={handleNameChange}/>
+    <input
+      style={styles}
+      type="text"
+      value={props.name}
+      onChange={handleNameChange}
+    />
   );
 };
 
