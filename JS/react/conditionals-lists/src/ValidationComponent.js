@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ValidationComponent = ({len}) => {
-  const out = getOutput(len)
+  const out = getOutput(len);
   return (
     <div style={out.style}>{out.text}</div>
   );
