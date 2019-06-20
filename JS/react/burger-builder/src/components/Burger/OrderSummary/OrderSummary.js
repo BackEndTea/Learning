@@ -13,6 +13,7 @@ const OrderSummary = props => {
         : {props.ingredients[key]}
       </li>
     });
+
   return (
     <React.Fragment>
       <h3>Your Order</h3>

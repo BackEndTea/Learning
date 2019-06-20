@@ -4,7 +4,6 @@ import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
 class Layout extends React.Component{
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +35,6 @@ class Layout extends React.Component{
           {this.props.children}
         </main>
       </React.Fragment>
-
     )
   }
 }
