@@ -42,6 +42,11 @@ elem' a (x:xs)
 quicksort :: (Ord a) => [a] -> [a]
 quicksort [] = []
 quicksort (x:xs) =
-    let smallerSorted = quicksort [a | a <- xs, a <= x]
-        biggerSorted = quicksort [a | a <- xs, a > x]
+    let smallerSorted = quicksort (filter (<=x) xs)
+        biggerSorted = quicksort (filter (>x) xs)
     in  smallerSorted ++ [x] ++ biggerSorted
+
+
+-- Why use many word when few word to trick
+f=filter;
+q[]=[];q(x:xs)=let s=q(f(<=x)xs);b=q(f(>x)xs)in s++[x]++b
