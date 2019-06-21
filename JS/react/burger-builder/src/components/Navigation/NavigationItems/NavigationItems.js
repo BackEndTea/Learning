@@ -11,7 +11,7 @@ const NavigationItems = () => (
       Burger Builder
     </NavigationItem>
     <NavigationItem
-      link={'/'}
+      link={'/checkout'}
     >
       Checkout
     </NavigationItem>
