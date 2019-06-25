@@ -6,6 +6,7 @@ import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
+import * as actionTypes from "../../../store/actions";
 
 class ContactData extends React.Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class ContactData extends React.Component {
     axios.post('/orders.json',order)
       .then(() => {
         this.setState({loading: false});
+        this.props.onPurchaseFinished();
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -193,4 +195,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPurchaseFinished: () => dispatch({
+      type: actionTypes.RESET_INGREDIENTS,
+    }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);

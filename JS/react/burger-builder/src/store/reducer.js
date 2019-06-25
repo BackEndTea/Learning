@@ -38,6 +38,19 @@ const reducer = (state = initialState, action) => {
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
       };
+    case actionTypes.RESET_INGREDIENTS:
+      const currentIngredients = {
+        ...state.ingredients
+      };
+      for (let key in currentIngredients) {
+        currentIngredients[key] = 0;
+      };
+      return {
+        ...state,
+        ingredients: {
+          ...currentIngredients
+        }
+      };
 
     default:
       return state;
