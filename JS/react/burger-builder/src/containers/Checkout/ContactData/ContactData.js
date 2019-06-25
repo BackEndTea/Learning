@@ -2,12 +2,12 @@ import React from 'react';
 import classes from './ContactData.css'
 import axios from '../../../axios-orders';
 
-import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import {purchaseBurgerStart} from "../../../store/actions";
+import { purchaseBurgerStart } from "../../../store/actions";
+import SuccessButton from "../../../components/UI/Button/SuccessButton";
 
 class ContactData extends React.Component {
   constructor(props) {
@@ -162,7 +162,7 @@ class ContactData extends React.Component {
             value={elem.config.value}
           />
         ))}
-        <Button btnType="Success" disabled={!this.state.formIsValid} clicked={this.orderHandler}>ORDER</Button>
+        <SuccessButton disabled={!this.state.formIsValid} clicked={this.orderHandler}>ORDER</SuccessButton>
       </form>
     );
 
