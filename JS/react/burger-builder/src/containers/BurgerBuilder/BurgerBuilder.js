@@ -20,17 +20,6 @@ class BurgerBuilder extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // axios.get('/ingredients.json')
-    //   .then(response => {
-    //     const ingredients = response.data;
-    //     this.setState({ingredients: ingredients});
-    //     this.isPurchasable(ingredients)
-    //   }).catch(() => {
-    //     this.setState({error: true});
-    // });
-  }
-
   isPurchasable() {
     const sum = Object.keys(this.props.ings).reduce((sum,key) => sum + this.props.ings[key], 0);
     return sum > 0;
