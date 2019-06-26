@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './NavigationItems.css'
 import NavigationItem from "./NavigationItem/NavigationItem";
 
-const NavigationItems = () => (
+const NavigationItems = (props) => (
   <ul className={classes.NavigationItems}>
     <NavigationItem
       link={'/'}
@@ -10,12 +10,32 @@ const NavigationItems = () => (
     >
       Burger Builder
     </NavigationItem>
-    <NavigationItem
-      link={'/orders'}
-      exact={false}
-    >
-      Orders
-    </NavigationItem>
+    {props.isAuth ?
+      <NavigationItem
+        link={'/orders'}
+        exact={false}
+      >
+        Orders
+      </NavigationItem>
+      : null
+    }
+    {props.isAuth
+      ?
+      <NavigationItem
+        link={'/logout'}
+        exact={false}
+      >
+        Log Out
+      </NavigationItem>
+      :
+      <NavigationItem
+        link={'/auth'}
+        exact={false}
+      >
+        Authenticate
+      </NavigationItem>
+    }
+
   </ul>
 );
 
