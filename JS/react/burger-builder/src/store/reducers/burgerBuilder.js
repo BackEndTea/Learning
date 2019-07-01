@@ -61,7 +61,6 @@ const fetchIngredientsFailed = (state) => {
 };
 
 const burgerBuilder = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
       return addIngredient(state,action);

@@ -9,6 +9,7 @@ import {auth, setAuthRedirect} from '../../store/actions'
 import DangerButton from "../../components/UI/Button/DangerButton";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {Redirect} from "react-router-dom";
+import checkValidity from "../../util/checkValidity";
 
 class Auth extends React.Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class Auth extends React.Component {
     };
 
     updatedFromElement.value = event.target.value;
-    updatedFromElement.valid = this.checkValidity(event.target.value, updatedFromElement.validation);
+    updatedFromElement.valid = checkValidity(event.target.value, updatedFromElement.validation);
     updatedOrderForm[inputIdentifier] = updatedFromElement;
 
     let formIsValid = true;
@@ -81,39 +82,11 @@ class Auth extends React.Component {
     this.setState({controls: updatedOrderForm, formIsValid: formIsValid} );
   };
 
-  checkValidity(value, rules) {
-    let isValid = true;
-
-    if (!rules) {
-      return true;
-    }
-
-    if(rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.minLength && isValid;
-    }
-
-    return isValid;
-  }
-
   switchAuthModeHandler = () =>{
     this.setState({isSignUp: !this.state.isSignUp})
   };
 
   render() {
-
-    if (this.props.isAuthenticated) {
-      return (
-        <Redirect to={this.props.authRedirectPath} />
-      )
-    }
 
     const formElementsArray = [];
     for (let key in this.state.controls) {
@@ -138,6 +111,13 @@ class Auth extends React.Component {
     }
 
     const errorMessage = this.props.error ? <p>{this.props.error.message}</p> : null;
+
+    if (this.props.isAuthenticated) {
+      console.log('Authenticated, redirecting', this.props.authRedirectPath);
+      return (
+        <Redirect to={this.props.authRedirectPath} />
+      )
+    }
     return (
       <div className={classes.Auth}>
         {errorMessage}

@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import { purchaseBurgerStart } from "../../../store/actions";
 import SuccessButton from "../../../components/UI/Button/SuccessButton";
+import checkValidity from "../../../util/checkValidity";
 
 class ContactData extends React.Component {
   constructor(props) {
@@ -83,28 +84,6 @@ class ContactData extends React.Component {
     };
   }
 
-  checkValidity(value, rules) {
-    let isValid = true;
-
-    if (!rules) {
-      return true;
-    }
-
-    if(rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.minLength && isValid;
-    }
-
-    return isValid;
-  }
-
   orderHandler = (event) => {
     event.preventDefault();
     const formData = {};
@@ -132,7 +111,7 @@ class ContactData extends React.Component {
     };
 
     updatedFromElement.value = event.target.value;
-    updatedFromElement.valid = this.checkValidity(event.target.value, updatedFromElement.validation);
+    updatedFromElement.valid = checkValidity(event.target.value, updatedFromElement.validation);
     updatedOrderForm[inputIdentifier] = updatedFromElement;
 
     let formIsValid = true;

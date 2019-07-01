@@ -23,7 +23,6 @@ const NavigationItems = (props) => (
       ?
       <NavigationItem
         link={'/logout'}
-        exact={false}
       >
         Log Out
       </NavigationItem>
