@@ -11,13 +11,13 @@ const useAxiosInterceptors = (axios) => {
   const responseInterceptor = axios.interceptors.response.use(res => res,
     err => setError(err)
   );
-
   useEffect(() => {
     return () => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.request.eject(responseInterceptor);
     }
-  }, [requestInterceptor, responseInterceptor, axios]);
+    // eslint-disable-next-line
+  }, []);
 
   return [error, setError];
 };
