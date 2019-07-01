@@ -17,7 +17,8 @@ export const BurgerBuilder = (props) => {
 
   useEffect(() => {
     props.onInitIngredients();
-  }, [props.onInitIngredients]);
+    // eslint-disable-next-line
+  }, []);
 
 
   const isPurchasable = () => {

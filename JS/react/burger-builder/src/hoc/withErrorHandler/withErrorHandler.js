@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Modal from "../../components/UI/Modal/Modal";
+
+import useAxiosInterceptors from "../../hooks/useAxiosInterceptors";
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return (props) => {
-    const [error, setError] = useState(null);
+    const [error, setError] = useAxiosInterceptors(axios);
 
-    const requestInterceptor = axios.interceptors.request.use(req => {
-      setError(null);
-      return req;
-    });
-
-    const responseInterceptor = axios.interceptors.response.use(res => res,
-      err => setError(err)
-    );
-
-    useEffect(() => {
-      return () => {
-        axios.interceptors.request.eject(requestInterceptor);
-        axios.interceptors.request.eject(responseInterceptor);
-      }
-    }, [requestInterceptor, responseInterceptor]);
-
-    const clearErrorHandler = () => {
-      setError(null);
-    };
+    const clearErrorHandler = () => setError(null);
 
     return (
       <React.Fragment>

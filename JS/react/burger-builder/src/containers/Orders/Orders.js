@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 const Orders  = (props) => {
   useEffect(() => {
     props.onFetchOrders(props.token, props.userId);
+    // eslint-disable-next-line
   }, []);
 
   let content = props.orders.map((order) => (

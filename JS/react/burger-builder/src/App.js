@@ -13,6 +13,7 @@ import { authCheckState } from "./store/actions";
 const App = (props) => {
   useEffect(() => {
     props.onStartUp();
+    // eslint-disable-next-line
   }, []);
 
   let routes = (
