@@ -24,3 +24,6 @@ __pycahce__/
 
 # C
 *.out
+
+# PHP
+vendor/

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+
+if [ ! -d "$1" ]
+then
+    echo "Directory $1 does not exist"
+    exit 1
+fi
+
+vendor/bin/phpunit $1/test

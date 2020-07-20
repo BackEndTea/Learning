@@ -1,0 +1,14 @@
+{
+  "require": {
+    "php": "^7.4",
+    "phpunit/phpunit": "^9.2"
+  },
+  "autoload": {
+    "files": [
+      "./prime/is_prime.php"
+    ],
+    "psr-4": {
+      "Kata\\": "."
+    }
+  }
+}
