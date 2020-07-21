@@ -2,16 +2,66 @@
 
 namespace Kata\prime\test;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use function Kata\prime\is_prime;
+use const PHP_INT_MAX;
 
 final class IsPrimeTest extends TestCase
 {
-    public function testExamples(): void
+    /**
+     * @dataProvider providePrimes
+     *
+     * @testdox Detect $prime is a prime
+     */
+    public function testPrimes(int $prime): void
     {
-        self::assertFalse(is_prime(0));
-        self::assertFalse(is_prime(1));
-        self::assertTrue(is_prime(2));
-        self::assertTrue(is_prime(5), 'Your function should work for the example provided in the Kata Description');
+        self::assertTrue(is_prime($prime));
+    }
+
+
+    public function providePrimes(): Generator
+    {
+        yield [2];
+        yield [3];
+        yield [5];
+        yield [7];
+        yield [11];
+        yield [8191];
+        yield [524287];
+    }
+
+    /**
+     * @dataProvider provideNonPrimes
+     * Negative numbers are not primes by definition
+     * @dataProvider provideNegativeNumbers
+     *
+     * @testdox Detect $nonPrime is not a prime
+     */
+    public function testNonPrimes(int $nonPrime): void
+    {
+        self::assertFalse(is_prime($nonPrime));
+    }
+
+    public function provideNonPrimes(): Generator
+    {
+        yield [1];
+        yield [4];
+        yield [6];
+        yield [8];
+        yield [9];
+        yield [10];
+        yield [2047];
+        yield [10000];
+        yield [100000];
+        yield [8388607];
+        yield [1239998607];
+    }
+
+    public function provideNegativeNumbers(): Generator
+    {
+        yield [-12];
+        yield [-8];
+        yield [-7];
     }
 }
