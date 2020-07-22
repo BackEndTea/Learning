@@ -5,7 +5,8 @@
   },
   "autoload": {
     "files": [
-      "./prime/is_prime.php"
+      "./prime/is_prime.php",
+      "./printer_errors/printerErrors.php"
     ],
     "psr-4": {
       "Kata\\": "."

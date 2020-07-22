@@ -5,7 +5,6 @@ namespace Kata\prime\test;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use function Kata\prime\is_prime;
-use const PHP_INT_MAX;
 
 final class IsPrimeTest extends TestCase
 {
