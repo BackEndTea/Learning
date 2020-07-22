@@ -29,6 +29,11 @@ final class IsPrimeTest extends TestCase
         yield [11];
         yield [8191];
         yield [524287];
+
+        yield [1000004249];
+        yield [5234571809];
+        yield [9294971353];
+        yield [9294972289];
     }
 
     /**
@@ -55,7 +60,8 @@ final class IsPrimeTest extends TestCase
         yield [10000];
         yield [100000];
         yield [8388607];
-        yield [1239998607];
+        yield [5234571811];
+        yield [5234571813];
     }
 
     public function provideNegativeNumbers(): Generator
